@@ -1,37 +1,41 @@
 
 $(document).ready(function(){
 	
-	var counter = 60;
+	var counter = 45;
 	var correct = 0;
 	var incorrect = 0;
-	var unanswered = 0;
-	var clockRunning = false; 
+	var unanswered = 0; 
 	var intervalId;
 
+	$(".panel-default1").hide();
+	// $("#timeLeft").hide();
+	// $(".content").hide();
+	// $("#submit").hide();
+	$(".panel-default2").hide();
+	// $("#results").hide();
+	// $("#restart").hide();
 
-	$("#timeLeft").hide();
-	$(".content").hide();
-	$("#submit").hide();
-	$("#results").hide();
-	$("#restart").hide();
-
-// show the questions when start is clicked
+// show the questions when start is clicked/ start clock
 	$("#start").on("click", function(){
-	 	$("#start").hide();
+	 	// $("#start").hide();
+	 	$(".panel-default").hide();
 	 	run();
-	 	$("#timeLeft").show();
-		$(".content").show();
-		$("#submit").show();
+	 	$(".panel-default1").show();
+	 // 	$("#timeLeft").show();
+		// $(".content").show();
+		// $("#submit").show();
 		
 		
 	})
 
 // show results when submit is clicked
    $("#submit").on("click", function(){
-		$(".content").hide();
-		$("#submit").hide();
-		$("#results").show();
-		$("#restart").show();
+   		$(".panel-default1").hide();
+		// $(".content").hide();
+		// $("#submit").hide();
+		$(".panel-default2").show();
+		// $("#results").show();
+		// $("#restart").show();
 		stop();
 
 	})
@@ -53,19 +57,42 @@ $(document).ready(function(){
 	function stop() {
       clearInterval(intervalId);
 	   
-		$(".content").hide();
-		$("#submit").hide();
-		$("#results").show();
-		$("#restart").show();
+	   	$(".panel-default1").hide();
+		// $(".content").hide();
+		// $("#submit").hide();
+		$(".panel-default2").show();
+		// $("#results").show();
+		// $("#restart").show();
     }
 
- //    $("#submit").on("click" function(){
-	// 	$(".content").hide();
-	// 	$("#submit").hide();
-	// 	$("#results").show();
-	// 	$("#restart").show();
+    $('input[name=radio]').on("change", function(){
+    	correct = $("input[value=true]:checked").length;
+		incorrect = $("input[value=false]:checked").length;
+		unanswered = (8 - (correct + incorrect));
 
-	// })
+		$("#correct").html("Number Correct: " + correct);
+		$("#incorrect").html("Number Incorrect: " + incorrect);
+		$("#unanswered").html("Unsnswered Questions: " + unanswered);
+    })
+
+    $("#restart").on("click", function(){
+    	$(".panel-default").hide();
+    	// $("#start").hide();
+    	// $("#timeLeft").show();
+    	$(".panel-default1").show();
+		// $(".content").show();
+		// $("#submit").show();
+		$(".panel-default2").hide();
+		// $("#results").hide();
+		// $("#restart").hide();
+		$("input:checked").removeAttr("checked");
+
+		var counter = 45;
+		var correct = 0;
+		var incorrect = 0;
+		var unanswered = 0;
+	})
+
 
 
 });
